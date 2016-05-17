@@ -1,15 +1,25 @@
-class User{
-	constructor(name, id, email){
-		this.name = name;
-		this.id = id;
-		this.email = email;
-	}
+//Import all of the useful modules
+import { App } from './app';
+import { route, routes } from './routes';
+import $ from 'jquery';
 
-	get User() {
-		return [this.name, this.id, this.email];
-	}
-}
+//Setup the User Object
+let user = {
+	id:1,
+	name:'Justin',
+	email:'justin@budgetdumpster.com'
+};
 
-var user = new User('Justin', 1, 'justin@sloppyseconds.com');
-console.log(user.User);
+//setup our routes
+route('/', 'home', function(){
+	$('body').append('home page');
+});
 
+route('/test', 'test', function(){
+	$('body').append('this is just a testing page');
+})
+
+var app = new App(user, routes);
+app.run();
+
+// window.addEventListener('hashchange', app.route());
