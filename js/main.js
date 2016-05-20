@@ -1,25 +1,20 @@
-//Import all of the useful modules
 import { App } from './app';
-import { route, routes } from './routes';
-import $ from 'jquery';
+import { routes } from './routes';
+import { Load, HashChange } from './helpers/events';
 
-//Setup the User Object
-let user = {
-	id:1,
-	name:'Justin',
-	email:'justin@budgetdumpster.com'
-};
+//setup the application as our event listener callback
+var callback = function(){
+	var app = new App(routes);
+	return app.run();
+}
 
-//setup our routes
-route('/', 'home', function(){
-	$('body').append('home page');
+//on load run the app
+var load = new Load(window, function(){
+	localStorage.clear();
+	return callback();
 });
+load.listen();
 
-route('/test', 'test', function(){
-	$('body').append('this is just a testing page');
-})
-
-var app = new App(user, routes);
-app.run();
-
-// window.addEventListener('hashchange', app.route());
+//when the hash changes (route change) run the app
+var hashchange = new HashChange(window, callback);
+hashchange.listen();

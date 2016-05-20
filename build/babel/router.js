@@ -18,16 +18,15 @@ var Router = function () {
   _createClass(Router, [{
     key: 'dispatch',
     value: function dispatch() {
-      var route = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
+      var payload = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
 
       var url = location.hash.slice(1) || '/';
       // Get route by url:
       if (this.routes[url]) {
-        route = this.routes[url];
-      };
-
-      var test = new route.controller();
-      console.log(route.controller);
+        var route = this.routes[url];
+        //execute the controller
+        return new route.controller(payload);
+      }
     }
   }]);
 

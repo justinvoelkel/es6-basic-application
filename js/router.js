@@ -4,15 +4,14 @@ class Router{
 		this.routes = routes;
 	}
 
-	dispatch(route = null){
+	dispatch(payload = null){
 		var url = location.hash.slice(1) || '/';
         // Get route by url:
         if(this.routes[url]){
-        	route = this.routes[url];
-        };
-
-        var test = new route.controller;
-        console.log(route.controller);
+        	let route = this.routes[url];
+        	//execute the controller
+        	return new route.controller(payload);
+        }
 	}
 }
 

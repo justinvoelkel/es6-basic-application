@@ -4,30 +4,21 @@ var _app = require('./app');
 
 var _routes = require('./routes');
 
-var _jquery = require('jquery');
+var _events = require('./helpers/events');
 
-var _jquery2 = _interopRequireDefault(_jquery);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//Setup the User Object
-var user = {
-	id: 1,
-	name: 'Justin',
-	email: 'justin@budgetdumpster.com'
+//setup the application as our event listener callback
+var callback = function callback() {
+	var app = new _app.App(_routes.routes);
+	return app.run();
 };
 
-//setup our routes
-//Import all of the useful modules
-(0, _routes.route)('/', 'home', function () {
-	(0, _jquery2.default)('body').append('home page');
+//on load run the app
+var load = new _events.Load(window, function () {
+	localStorage.clear();
+	return callback();
 });
+load.listen();
 
-(0, _routes.route)('/test', 'test', function () {
-	(0, _jquery2.default)('body').append('this is just a testing page');
-});
-
-var app = new _app.App(user, _routes.routes);
-app.run();
-
-// window.addEventListener('hashchange', app.route());
+//when the hash changes (route change) run the app
+var hashchange = new _events.HashChange(window, callback);
+hashchange.listen();
