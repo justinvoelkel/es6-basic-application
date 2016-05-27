@@ -1,0 +1,67 @@
+<h1>Tasks</h1>
+<%for(var index in this.tasks) {%>
+	<div class="task">
+		<h3><%this.tasks[index].title%></h3>
+		<p><img src="<%this.tasks[index].thumb%>"><br><b><%this.tasks[index].assignee%></b></p>
+		<p><%this.tasks[index].description.text%></p>
+		<b>status:</b>
+		<fieldset>
+		    <input id="checkbox1" type="checkbox"><label for="checkbox1">4 persent complet - send 2 development</label>
+		    <input id="checkbox2" type="checkbox"><label for="checkbox2">Postpone do 2 fantasi realitee tv draft</label>
+		    <input id="checkbox3" type="checkbox"><label for="checkbox3">Told development 2 do it for me</label>
+	  	</fieldset>
+	</div>
+	<hr/>
+<%}%>
+	<div id="email" class="modal">
+		<h1>Plx Subscrib Emale 2 c Task</h1>
+		<img width="150" src="../assets/Trollface.jpg"/>
+		<form>
+			<input type="text" placeholder="emale">
+		</form>
+		<button onclick="dismiss(this)">submet</button>
+		<button onclick="ignore(this, 'srsly')">ignor 4 now</button>
+	</div>
+	<div id="srsly" class="modal">
+		<h1>Reel Quik, U Plz Tell Y plz?</h1>
+		<img width="150" src="../assets/trollface2.png"/>
+		<form>
+			<input id="checkbox1" type="checkbox"><label for="checkbox1">I leik bein dum</label><br>
+		    <input id="checkbox2" type="checkbox"><label for="checkbox2">I am not alyve ne more</label><br>
+		    <input id="checkbox3" type="checkbox"><label for="checkbox3">4 luv of god leaf me alone!1!!</label>
+		</form>
+		<button onclick="dismiss(this)">sub meee ツ</button>
+		<button onclick="ignore(this, 'survey')">be bitch ಠ_ಠ</button>
+	</div>
+	<div id="survey" class="modal">
+		<h1>How Bout Survay?</h1>
+		<div class="row">
+			<div class="large-6 columns">
+				<img width="150" src="../assets/trollface3.jpg"/>
+			</div>
+			<div class="large-6 columns">
+				<h5>survey: wich 1 iz best?</h5>
+				<form>
+					<input id="checkbox1" type="checkbox"><label for="checkbox1">gettin lanks!</label><br>
+					<input id="checkbox1" type="checkbox"><label for="checkbox1">bachlerate</label><br>
+					<input id="checkbox1" type="checkbox"><label for="checkbox1">talkin bout qts</label><br>
+					<input id="checkbox1" type="checkbox"><label for="checkbox1">eet da snax :P</label>
+				</form>
+			</div>
+		</div>
+		<button onclick="dismiss(this)">pick</button>
+	</div>
+	<script type="text/javascript">
+		function ignore(modal, open){
+			modal.parentNode.style.display = 'none';
+			setTimeout(function(){
+				document.getElementById(open).style.display = 'block';
+			},3000);
+			return false;
+		}
+
+		function dismiss(modal){
+			modal.parentNode.style.display = 'none';
+			return false;
+		}
+	</script>	

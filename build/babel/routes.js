@@ -9,6 +9,8 @@ var _jquery = require('jquery');
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
+var _templates = require('./helpers/templates');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var routes = {};
@@ -22,14 +24,21 @@ route('/', 'home', function (payload) {
 
 	(0, _jquery2.default)('#name').text(payload.user.name);
 	(0, _jquery2.default)('#thumb').attr('src', payload.user.thumb);
-	(0, _jquery2.default)('#main').empty();
+
+	(0, _templates.render)('home.html', payload);
 });
 
 route('/tasks', 'tasks', function (payload) {
-	(0, _jquery2.default)('#main').empty();
-	(0, _jquery2.default)('#main').html('<h1>Tasks</h1>');
-	_jquery2.default.each(payload.tasks, function (key, value) {
-		(0, _jquery2.default)('#main').append('<h3>' + value.title + '</h3>' + '<p><img src="' + value.thumb + '"> ' + value.assignee + '</p>' + '<p>' + value.description.text + '</p>' + '<hr/>');
+
+	(0, _jquery2.default)('#name').text(payload.user.name);
+	(0, _jquery2.default)('#thumb').attr('src', payload.user.thumb);
+
+	(0, _templates.render)('tasks.html', payload);
+
+	(0, _jquery2.default)(function () {
+		setTimeout(function () {
+			(0, _jquery2.default)('#email.modal').fadeIn('slow');
+		}, 5000);
 	});
 });
 

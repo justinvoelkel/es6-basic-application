@@ -37,7 +37,7 @@ var Generators = function () {
 		value: function user() {
 			return _jquery2.default.ajax({
 				type: 'GET',
-				url: 'https://randomuser.me/api',
+				url: 'http://api.randomuser.me/?nat=us',
 				async: false
 			}).responseJSON;
 		}

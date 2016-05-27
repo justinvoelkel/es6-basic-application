@@ -14,7 +14,7 @@ class Generators{
 	user(){
 		return $.ajax({
 			type:'GET',
-			url:'https://randomuser.me/api',
+			url:'http://api.randomuser.me/?nat=us',
 			async:false
 		}).responseJSON;
 	}

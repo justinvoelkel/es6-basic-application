@@ -50,7 +50,7 @@
 	
 	var _routes = __webpack_require__(7);
 	
-	var _events = __webpack_require__(8);
+	var _events = __webpack_require__(9);
 	
 	//setup the application as our event listener callback
 	var callback = function callback() {
@@ -290,7 +290,7 @@
 			value: function user() {
 				return _jquery2.default.ajax({
 					type: 'GET',
-					url: 'https://randomuser.me/api',
+					url: 'http://api.randomuser.me/?nat=us',
 					async: false
 				}).responseJSON;
 			}
@@ -10250,7 +10250,7 @@
 	
 			this.task = {};
 			this.task.prefix = ['advertainment', 'clickbait', 'disruptor', 'freemium', 'gamification', 'hyperlocal', 'ideation', 'netiquette', 'synergy'];
-			this.task.suffix = ['modulator', 'generator', 'accenturator', 'accelerator', 'cannon', 'trebuchet', 'gobbler', 'chomper', 'distributationor', 'flange'];
+			this.task.suffix = ['modulator', 'generator', 'accenturator', 'accelerator', 'cannon', 'trebuchet', 'gobbler', 'chomper', 'monitizer', 'flange'];
 			this.task.verbs = ['hork', 'spew', 'goose', 'synergize', 'complicate', 'meet about', 'meet about the meeting for', 'planning meeting for the meeting for'];
 		}
 	
@@ -10315,6 +10315,8 @@
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
+	var _templates = __webpack_require__(8);
+	
 	function _interopRequireDefault(obj) {
 		return obj && obj.__esModule ? obj : { default: obj };
 	}
@@ -10330,14 +10332,21 @@
 	
 		(0, _jquery2.default)('#name').text(payload.user.name);
 		(0, _jquery2.default)('#thumb').attr('src', payload.user.thumb);
-		(0, _jquery2.default)('#main').empty();
+	
+		(0, _templates.render)('home.html', payload);
 	});
 	
 	route('/tasks', 'tasks', function (payload) {
-		(0, _jquery2.default)('#main').empty();
-		(0, _jquery2.default)('#main').html('<h1>Tasks</h1>');
-		_jquery2.default.each(payload.tasks, function (key, value) {
-			(0, _jquery2.default)('#main').append('<h3>' + value.title + '</h3>' + '<p><img src="' + value.thumb + '"> ' + value.assignee + '</p>' + '<p>' + value.description.text + '</p>' + '<hr/>');
+	
+		(0, _jquery2.default)('#name').text(payload.user.name);
+		(0, _jquery2.default)('#thumb').attr('src', payload.user.thumb);
+	
+		(0, _templates.render)('tasks.html', payload);
+	
+		(0, _jquery2.default)(function () {
+			setTimeout(function () {
+				(0, _jquery2.default)('#email.modal').fadeIn('slow');
+			}, 5000);
 		});
 	});
 	
@@ -10346,6 +10355,55 @@
 
 /***/ },
 /* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.render = undefined;
+	
+	var _jquery = __webpack_require__(4);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+	
+	function render(template, payload) {
+	    var template = _jquery2.default.get('templates/' + template);
+	    template.done(function (data) {
+	        var html = TemplateEngine(data, payload);
+	        (0, _jquery2.default)('#main').empty();
+	        (0, _jquery2.default)('#main').append(html);
+	    });
+	}
+	
+	var TemplateEngine = function TemplateEngine(html, options) {
+	    var re = /<%([^%>]+)?%>/g,
+	        reExp = /(^( )?(if|for|else|switch|case|break|{|}))(.*)?/g,
+	        code = 'var r=[];\n',
+	        cursor = 0,
+	        match;
+	    var add = function add(line, js) {
+	        js ? code += line.match(reExp) ? line + '\n' : 'r.push(' + line + ');\n' : code += line != '' ? 'r.push("' + line.replace(/"/g, '\\"') + '");\n' : '';
+	        return add;
+	    };
+	    while (match = re.exec(html)) {
+	        add(html.slice(cursor, match.index))(match[1], true);
+	        cursor = match.index + match[0].length;
+	    }
+	    add(html.substr(cursor, html.length - cursor));
+	    code += 'return r.join("");';
+	    return new Function(code.replace(/[\r\t\n]/g, '')).apply(options);
+	};
+	
+	exports.render = render;
+
+/***/ },
+/* 9 */
 /***/ function(module, exports) {
 
 	'use strict';

@@ -23,7 +23,7 @@ var Task = function () {
 
 		this.task = {};
 		this.task.prefix = ['advertainment', 'clickbait', 'disruptor', 'freemium', 'gamification', 'hyperlocal', 'ideation', 'netiquette', 'synergy'];
-		this.task.suffix = ['modulator', 'generator', 'accenturator', 'accelerator', 'cannon', 'trebuchet', 'gobbler', 'chomper', 'distributationor', 'flange'];
+		this.task.suffix = ['modulator', 'generator', 'accenturator', 'accelerator', 'cannon', 'trebuchet', 'gobbler', 'chomper', 'monitizer', 'flange'];
 		this.task.verbs = ['hork', 'spew', 'goose', 'synergize', 'complicate', 'meet about', 'meet about the meeting for', 'planning meeting for the meeting for'];
 	}
 
