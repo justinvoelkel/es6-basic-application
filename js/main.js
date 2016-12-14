@@ -4,14 +4,14 @@ import { Load, HashChange } from './helpers/events';
 
 //setup the application as our event listener callback
 var callback = function(){
-	var app = new App(routes);
-	return app.run();
+    var app = new App(routes);
+    return app.run();
 }
 
 //on load run the app
 var load = new Load(window, function(){
-	localStorage.clear();
-	return callback();
+    localStorage.clear();
+    return callback();
 });
 load.listen();
 
